@@ -28,7 +28,22 @@ const router = createRouter({
           component : () => import('../views/auth/Register.vue')
         },
       ]
-    }
+    },
+    {
+      path:'/machinery/',
+      children : [
+        {
+          path : '',
+          name : 'machine',
+          component : () => import('../views/rent/List.vue')
+        },
+        {
+          path : ':slug',
+          name : 'detail',
+          component : () => import('../views/rent/Detail.vue')
+        },
+      ]
+    },
   ]
 })
 
