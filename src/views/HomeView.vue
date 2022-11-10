@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-black/50 bg-[url('../assets/images/cover.jpg')] bg-cover bg-center bg-no-repeat">
+    <section class="bg-black/50 bg-[url('../assets/images/slideshow-2.jpg')] bg-cover bg-center bg-no-repeat">
         <div class="bg-black/50"></div>
         <div class="container mx-auto py-64">
             
@@ -46,7 +46,7 @@
             <h2 class="text-4xl font-bold">Browse Machinery Categories</h2>
         </div>
 
-        <div class="grid grid-cols-4 sm:grid-cols-1 gap-y-4 container mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto">
             <div class="rounded-lg">
                 <img src="../assets/images/category/category-1.jpeg" alt="">
                 <div class="hidden">
@@ -113,7 +113,7 @@
             <p class="text-xs">We Promise To Find You The Right Equipment</p>
             <h2 class="text-4xl font-bold">Latest Products</h2>
         </div>
-<div class="grid sm:grid-cols-1 grid-cols-2 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
     <div class="flex flex-row">
         <a href="#">
