@@ -45,65 +45,17 @@
             <p class="text-xs">We Promise To Find You The Right Equipment</p>
             <h2 class="text-4xl font-bold">Browse Machinery Categories</h2>
         </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 container mx-auto">
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-1.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Aerial Work Platforms, Scaffolding and Ladders</div>
-                </div>
-            </div>
-
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-1.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Construction Tools</div>
-                </div>
-            </div>
-
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-3.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Air Compressors And Air Tools</div>
-                </div>
-            </div>
-
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-1.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Compaction</div>
-                </div>
-            </div>
-
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-1.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Concrete and Mansory</div>
-                </div>
-            </div>
-
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-1.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Earth Moving</div>
-                </div>
-            </div>
-
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-1.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Facility Mantainance and Cleaning</div>
-                </div>
-            </div>
-
-            <div class="rounded-lg">
-                <img src="../assets/images/category/category-1.jpeg" alt="">
-                <div class="hidden">
-                    <div class="text">Fork lifts</div>
-                </div>
-            </div>
-
-        </div>
+        
+            <carousel :items-to-show="5" :wrap-around="true">
+                <slide v-for="cat in category" :key="cat">
+                    <div class="relative mx-3">
+                        <img :src="cat.image" alt="" class="rounded">
+                        <div class="py-1 h-16 bg-slate-500 dark:text-gray-200">
+                            <div class="text py-2 px-2">{{ cat.categoryname }}</div>
+                        </div>
+                    </div>
+                </slide>
+            </carousel>
 
     </section>
 
@@ -318,9 +270,40 @@
     </section>
 </template>
 <script>
+import axiosInstance from '../http';
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { ref,onMounted } from 'vue';
     export default {
-        setup() {
+        components: {
+            Carousel,
+            Slide,
+            Pagination,
+            Navigation,
+        },
 
+        setup() {
+            const category = ref([])
+            const machine = ref([])
+            onMounted (()=>{
+                // get categories
+                axiosInstance.get('category/').then(response => {
+                    category.value = response.data
+                }).catch(error =>{
+                    console.log('error :>> ', error);
+                })
+
+                // get all machines 
+                axiosInstance.get('machine/').then(response => {
+                    machine.value =response.data
+                }).catch(error => {
+                    console.log('error :>> ', error);
+                })
+            })
+
+            return {
+                category,
+            }
         },
     }
 </script>
