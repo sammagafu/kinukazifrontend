@@ -30,12 +30,17 @@ const router = createRouter({
       ]
     },
     {
-      path:'/machinery/',
+      path:'/machine/',
       children : [
         {
           path : '',
           name : 'machine',
           component : () => import('../views/rent/List.vue')
+        },
+        {
+          path : 'add/',
+          name : 'addMachine',
+          component : () => import('../views/machine/AddMachine.vue')
         },
         {
           path : ':slug',

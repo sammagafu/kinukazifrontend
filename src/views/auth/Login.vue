@@ -38,8 +38,9 @@
 </template>
 
 <script>
-import axiosInstance from '../../http';
+import axiosInstance from '@/http';
 import { ref, onMounted } from 'vue';
+import { authStore } from '@/stores/usersStore'
 import { useRouter } from 'vue-router'
 export default {
     name: "Login",
@@ -47,6 +48,7 @@ export default {
         const username = ref("")
         const password = ref("")
         const route = useRouter()
+        const store = authStore()
 
         function userLogin(){
             const logindata = {
@@ -54,9 +56,19 @@ export default {
                 password:password.value,
             }
             axiosInstance.post("auth/login/",logindata).then(response =>{
-                console.log(response)
+                
+                store.authToken = response.data.access
+                store.refreshToken = response.data.refresh
+
+                localStorage.setItem("access", response.data.access)
+                localStorage.setItem("refresh", response.data.refresh)
+                localStorage.setItem("isAuthenticated",true)
+                store.isAuthenticated = true
+                store.getUserData()
+
+                console.log('store.is :>> ', store.isAuthenticated);
             }).catch(error => {
-                console.log('eroor :>> ', eroor);
+                console.log('eroor :>>',error);
             })
             route.push({name:'home'})
 
